@@ -1,23 +1,21 @@
-import logo from './logo.svg';
+import { useState } from "react";
 import './App.css';
+import "./CurrencyConverter";
+import { CurrencyConverter } from './CurrencyConverter';
+import React from 'react';
 
 function App() {
+
+  const [fx, setFx] = useState(1.1);
+
+  setTimeout(() => {
+    const delta = -0.05 + (Math.random()) * 0.1;
+    setFx(s => s + delta);
+  }, 3000);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <CurrencyConverter fx={fx} />
     </div>
   );
 }
