@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import './Currency.css';
 
 export function CurrencyConverter(props) {
     let fxEur = props.fx;
@@ -44,7 +44,7 @@ export function CurrencyConverter(props) {
                         baseCurrency,
                         baseAmount: baseCurrency === "EUR" ? eur : usd,
                         targetCurrency: baseCurrency === "EUR" ? "USD" : "EUR",
-                        targetAmount: baseCurrency === "EUR" ? usd : eur,
+                        targetAmount: baseCurrency === "EUR" ? Number(eur * currFx).toFixed(3) : Number(usd / currFx).toFixed(3),
                     }];
             } else {
                 newArray = oldArray;
@@ -83,26 +83,29 @@ export function CurrencyConverter(props) {
 
     return (
         <div style={{ width: "80%", margin: "auto" }}>
-            <p>
+            <h1>
                 Currency Converter
-            </p>
-            <p>
+            </h1>
+            <h2>
                 EUR to USD Rate: {Number(fxEur).toFixed(3)}
-            </p>
+            </h2>
             <label htmlFor="eur-input">EUR: </label>
             <input id="eur-input" value={eur} onChange={handleEur} />
             <label htmlFor="usd-input">USD: </label>
             <input id="usd-input" value={usd} onChange={handleUsd} />
-            <div onChange={handleRadioChange}>
+            <div onChange={handleRadioChange} style={{ paddingTop: "20px" }}>
                 <input type="radio" value="EUR" name="baseCurrency" checked={baseCurrency === "EUR"} /> EUR
                 <input type="radio" value="USD" name="baseCurrency" checked={baseCurrency === "USD"} /> USD
             </div>
-            <label htmlFor="override">Override: </label>
-            <input id="override" value={override} onChange={handleOverride} />
-            {' '}
-            {overrideActive}
 
-            <table>
+            <div style={{ paddingTop: "20px", paddingBottom: "20px" }}>
+                <label htmlFor="override">Override: </label>
+                <input id="override" value={override} onChange={handleOverride} />
+                {' '}
+                {overrideActive}
+            </div>
+
+            <table className="currency">
                 <thead>
                     <tr>
                         <th scope="col">Real Time FX</th>
